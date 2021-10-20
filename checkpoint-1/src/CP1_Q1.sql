@@ -21,8 +21,7 @@ GROUP BY DAC.allegation_name;
 --                      on table1.allegation_id = DA.crid)
 --        WHERE table1.disciplined = TRUE
 --          AND DA.is_officer_complaint = FALSE
---        GROUP BY table1.allegation_name
---        ORDER BY count(*) DESC) civ_table
+--        GROUP BY table1.allegation_name) civ_table
 --          JOIN (SELECT count(*) officer_count, table1.allegation_name allegation_name
 --                FROM (
 --                      (
@@ -34,8 +33,7 @@ GROUP BY DAC.allegation_name;
 --                              on table1.allegation_id = DA.crid)
 --                WHERE table1.disciplined = TRUE
 --                  AND DA.is_officer_complaint = TRUE
---                GROUP BY table1.allegation_name
---                ORDER BY count(*) DESC) off_table
+--                GROUP BY table1.allegation_name) off_table
 --               ON civ_table.allegation_name = off_table.allegation_name)
 -- GROUP BY civ_table.allegation_name, officer_count, civilian_count
 -- ORDER BY allegation_name ASC;
