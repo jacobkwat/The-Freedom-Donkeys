@@ -1,6 +1,7 @@
 # The Freedom Donkeys Checkpoint 2
 
 *To view the visualizations, open the listed Tableau workbooks and navigate to the correct sheet as mentioned below.*
+
 ---
 
 **What is the relationship between the number of officers disciplined in each category of allegation for police/civilian reports?**
