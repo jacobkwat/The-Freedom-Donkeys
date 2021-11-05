@@ -54,14 +54,40 @@ with(
 // Get ids of officer birth_year matches
 with(
     if(
-        isNull(cells['suffix_name']), 
-        '', 
-        cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
-    sn_cross,
+        isNull(cells['officer_birth_year']), 
+        [], 
+        cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+    by_cross,
     if(
-        isNull(sn_cross), 
-        '', 
-        sn_cross
+        isNull(by_cross), 
+        [], 
+        by_cross
+    ))
+
+// Get ids of officer race matches
+with(
+    if(
+        isNull(cells['officer_race']), 
+        [], 
+        cells['officer_race'].value).cross('data_officer', 'race').cells['id'].value,
+    r_cross,
+    if(
+        isNull(r_cross), 
+        [], 
+        r_cross
+    ))
+
+// Get ids of officer gender matches
+with(
+    if(
+        isNull(cells['officer_gender']), 
+        [], 
+        cells['officer_gender'].value).cross('data_officer', 'gender').cells['id'].value,
+    g_cross,
+    if(
+        isNull(g_cross), 
+        [], 
+        g_cross
     ))
 
 // convert array to str array
@@ -158,9 +184,7 @@ filter(
             mi_arr.inArray(mi_filter)))
 )
 
-
-
-// working function
+// function to compare first name, last name, middle initial, suffix name
 filter(
     filter(
         filter(
@@ -235,4 +259,587 @@ filter(
             length(sn_arr)==0,
             true,
             sn_arr.inArray(sn_filter)))
+)
+
+// function to compare first name, last name, middle initial, suffix name, birth year
+filter(
+    with(
+        filter(
+            filter(
+                filter(
+                    forEach(
+                        with(
+                            if(
+                                isNull(value), 
+                                [], 
+                                cell).cross('data_officer', 'first_name').cells['id'].value,
+                            fn_cross,
+                            if(
+                                isNull(fn_cross), 
+                                [], 
+                                fn_cross
+                            )),
+                        x,
+                        x.toString()), 
+                    y,
+                    forEach(
+                        with(
+                            if(
+                                isNull(cells['officer_last_name']), 
+                                [], 
+                                cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                            ln_cross,
+                            if(
+                                isNull(ln_cross), 
+                                [], 
+                                ln_cross
+                            )),
+                        x,
+                        x.toString()).inArray(y)),
+                mi_filter,
+                with(
+                    forEach(
+                        with(
+                            if(
+                                isNull(cells['officer_middle_initial']), 
+                                [], 
+                                cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                            mi_cross,
+                            if(
+                                isNull(mi_cross), 
+                                [], 
+                                mi_cross
+                            )),
+                        x,
+                        x.toString()),
+                    mi_arr,
+                    if(
+                        length(mi_arr)==0,
+                        true,
+                        mi_arr.inArray(mi_filter)))),
+            sn_filter,
+            with(
+                forEach(
+                    with(
+                        if(
+                            isNull(cells['suffix_name']), 
+                            [], 
+                            cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+                        sn_cross,
+                        if(
+                            isNull(sn_cross), 
+                            [], 
+                            sn_cross
+                        )),
+                    x,
+                    x.toString()),
+                sn_arr,
+                if(
+                    length(sn_arr)==0,
+                    true,
+                    sn_arr.inArray(sn_filter)))),
+        prev_arr,
+        if(
+            length(prev_arr)==0,
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_birth_year']), 
+                        [], 
+                        cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                    by_cross,
+                    if(
+                        isNull(by_cross), 
+                        [], 
+                        by_cross
+                    )),
+                x,
+                x.toString()),
+            prev_arr)),
+    by_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_birth_year']), 
+                    [], 
+                    cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                by_cross,
+                if(
+                    isNull(by_cross), 
+                    [], 
+                    by_cross
+                )),
+            x,
+            x.toString()),
+        by_arr,
+        if(
+            length(by_arr)==0,
+            true,
+            by_arr.inArray(by_filter)))
+)
+
+// function to compare first name, last name, middle initial, suffix name, birth year, race
+filter(
+    filter(
+        with(
+            filter(
+                filter(
+                    filter(
+                        forEach(
+                            with(
+                                if(
+                                    isNull(value), 
+                                    [], 
+                                    cell).cross('data_officer', 'first_name').cells['id'].value,
+                                fn_cross,
+                                if(
+                                    isNull(fn_cross), 
+                                    [], 
+                                    fn_cross
+                                )),
+                            x,
+                            x.toString()), 
+                        y,
+                        forEach(
+                            with(
+                                if(
+                                    isNull(cells['officer_last_name']), 
+                                    [], 
+                                    cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                                ln_cross,
+                                if(
+                                    isNull(ln_cross), 
+                                    [], 
+                                    ln_cross
+                                )),
+                            x,
+                            x.toString()).inArray(y)),
+                    mi_filter,
+                    with(
+                        forEach(
+                            with(
+                                if(
+                                    isNull(cells['officer_middle_initial']), 
+                                    [], 
+                                    cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                                mi_cross,
+                                if(
+                                    isNull(mi_cross), 
+                                    [], 
+                                    mi_cross
+                                )),
+                            x,
+                            x.toString()),
+                        mi_arr,
+                        if(
+                            length(mi_arr)==0,
+                            true,
+                            mi_arr.inArray(mi_filter)))),
+                sn_filter,
+                with(
+                    forEach(
+                        with(
+                            if(
+                                isNull(cells['suffix_name']), 
+                                [], 
+                                cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+                            sn_cross,
+                            if(
+                                isNull(sn_cross), 
+                                [], 
+                                sn_cross
+                            )),
+                        x,
+                        x.toString()),
+                    sn_arr,
+                    if(
+                        length(sn_arr)==0,
+                        true,
+                        sn_arr.inArray(sn_filter)))),
+            prev_arr,
+            if(
+                length(prev_arr)==0,
+                forEach(
+                    with(
+                        if(
+                            isNull(cells['officer_birth_year']), 
+                            [], 
+                            cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                        by_cross,
+                        if(
+                            isNull(by_cross), 
+                            [], 
+                            by_cross
+                        )),
+                    x,
+                    x.toString()),
+                prev_arr)),
+        by_filter,
+        with(
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_birth_year']), 
+                        [], 
+                        cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                    by_cross,
+                    if(
+                        isNull(by_cross), 
+                        [], 
+                        by_cross
+                    )),
+                x,
+                x.toString()),
+            by_arr,
+            if(
+                length(by_arr)==0,
+                true,
+                by_arr.inArray(by_filter)))),
+    r_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_race']), 
+                    [], 
+                    cells['officer_race'].value).cross('data_officer', 'race').cells['id'].value,
+                r_cross,
+                if(
+                    isNull(r_cross), 
+                    [], 
+                    r_cross
+                )),
+            x,
+            x.toString()),
+        r_arr,
+        if(
+            length(r_arr)==0,
+            true,
+            r_arr.inArray(r_filter)))
+)
+
+
+// function to compare first name, last name, middle initial, suffix name, birth year, race, gender
+filter(
+    filter(
+        filter(
+            with(
+                filter(
+                    filter(
+                        filter(
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(value), 
+                                        [], 
+                                        cell).cross('data_officer', 'first_name').cells['id'].value,
+                                    fn_cross,
+                                    if(
+                                        isNull(fn_cross), 
+                                        [], 
+                                        fn_cross
+                                    )),
+                                x,
+                                x.toString()), 
+                            y,
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(cells['officer_last_name']), 
+                                        [], 
+                                        cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                                    ln_cross,
+                                    if(
+                                        isNull(ln_cross), 
+                                        [], 
+                                        ln_cross
+                                    )),
+                                x,
+                                x.toString()).inArray(y)),
+                        mi_filter,
+                        with(
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(cells['officer_middle_initial']), 
+                                        [], 
+                                        cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                                    mi_cross,
+                                    if(
+                                        isNull(mi_cross), 
+                                        [], 
+                                        mi_cross
+                                    )),
+                                x,
+                                x.toString()),
+                            mi_arr,
+                            if(
+                                length(mi_arr)==0,
+                                true,
+                                mi_arr.inArray(mi_filter)))),
+                    sn_filter,
+                    with(
+                        forEach(
+                            with(
+                                if(
+                                    isNull(cells['suffix_name']), 
+                                    [], 
+                                    cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+                                sn_cross,
+                                if(
+                                    isNull(sn_cross), 
+                                    [], 
+                                    sn_cross
+                                )),
+                            x,
+                            x.toString()),
+                        sn_arr,
+                        if(
+                            length(sn_arr)==0,
+                            true,
+                            sn_arr.inArray(sn_filter)))),
+                prev_arr,
+                if(
+                    length(prev_arr)==0,
+                    forEach(
+                        with(
+                            if(
+                                isNull(cells['officer_birth_year']), 
+                                [], 
+                                cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                            by_cross,
+                            if(
+                                isNull(by_cross), 
+                                [], 
+                                by_cross
+                            )),
+                        x,
+                        x.toString()),
+                    prev_arr)),
+            by_filter,
+            with(
+                forEach(
+                    with(
+                        if(
+                            isNull(cells['officer_birth_year']), 
+                            [], 
+                            cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                        by_cross,
+                        if(
+                            isNull(by_cross), 
+                            [], 
+                            by_cross
+                        )),
+                    x,
+                    x.toString()),
+                by_arr,
+                if(
+                    length(by_arr)==0,
+                    true,
+                    by_arr.inArray(by_filter)))),
+        r_filter,
+        with(
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_race']), 
+                        [], 
+                        cells['officer_race'].value).cross('data_officer', 'race').cells['id'].value,
+                    r_cross,
+                    if(
+                        isNull(r_cross), 
+                        [], 
+                        r_cross
+                    )),
+                x,
+                x.toString()),
+            r_arr,
+            if(
+                length(r_arr)==0,
+                true,
+                r_arr.inArray(r_filter)))),
+    g_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_gender']), 
+                    [], 
+                    cells['officer_gender'].value).cross('data_officer', 'gender').cells['id'].value,
+                g_cross,
+                if(
+                    isNull(g_cross), 
+                    [], 
+                    g_cross
+                )),
+            x,
+            x.toString()),
+        g_arr,
+        if(
+            length(g_arr)==0,
+            true,
+            g_arr.inArray(g_filter)))
+)
+
+// function to compare first name, last name, middle initial, suffix name, birth year, race, gender, appointed date
+filter(
+    filter(
+        filter(
+            with(
+                filter(
+                    filter(
+                        filter(
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(value), 
+                                        [], 
+                                        cell).cross('data_officer', 'first_name').cells['id'].value,
+                                    fn_cross,
+                                    if(
+                                        isNull(fn_cross), 
+                                        [], 
+                                        fn_cross
+                                    )),
+                                x,
+                                x.toString()), 
+                            y,
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(cells['officer_last_name']), 
+                                        [], 
+                                        cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                                    ln_cross,
+                                    if(
+                                        isNull(ln_cross), 
+                                        [], 
+                                        ln_cross
+                                    )),
+                                x,
+                                x.toString()).inArray(y)),
+                        mi_filter,
+                        with(
+                            forEach(
+                                with(
+                                    if(
+                                        isNull(cells['officer_middle_initial']), 
+                                        [], 
+                                        cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                                    mi_cross,
+                                    if(
+                                        isNull(mi_cross), 
+                                        [], 
+                                        mi_cross
+                                    )),
+                                x,
+                                x.toString()),
+                            mi_arr,
+                            if(
+                                length(mi_arr)==0,
+                                true,
+                                mi_arr.inArray(mi_filter)))),
+                    sn_filter,
+                    with(
+                        forEach(
+                            with(
+                                if(
+                                    isNull(cells['suffix_name']), 
+                                    [], 
+                                    cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+                                sn_cross,
+                                if(
+                                    isNull(sn_cross), 
+                                    [], 
+                                    sn_cross
+                                )),
+                            x,
+                            x.toString()),
+                        sn_arr,
+                        if(
+                            length(sn_arr)==0,
+                            true,
+                            sn_arr.inArray(sn_filter)))),
+                prev_arr,
+                if(
+                    length(prev_arr)==0,
+                    forEach(
+                        with(
+                            if(
+                                isNull(cells['officer_birth_year']), 
+                                [], 
+                                cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                            by_cross,
+                            if(
+                                isNull(by_cross), 
+                                [], 
+                                by_cross
+                            )),
+                        x,
+                        x.toString()),
+                    prev_arr)),
+            by_filter,
+            with(
+                forEach(
+                    with(
+                        if(
+                            isNull(cells['officer_birth_year']), 
+                            [], 
+                            cells['officer_birth_year'].value).cross('data_officer', 'birth_year').cells['id'].value,
+                        by_cross,
+                        if(
+                            isNull(by_cross), 
+                            [], 
+                            by_cross
+                        )),
+                    x,
+                    x.toString()),
+                by_arr,
+                if(
+                    length(by_arr)==0,
+                    true,
+                    by_arr.inArray(by_filter)))),
+        r_filter,
+        with(
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_race']), 
+                        [], 
+                        cells['officer_race'].value).cross('data_officer', 'race').cells['id'].value,
+                    r_cross,
+                    if(
+                        isNull(r_cross), 
+                        [], 
+                        r_cross
+                    )),
+                x,
+                x.toString()),
+            r_arr,
+            if(
+                length(r_arr)==0,
+                true,
+                r_arr.inArray(r_filter)))),
+    g_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_gender']), 
+                    [], 
+                    cells['officer_gender'].value).cross('data_officer', 'gender').cells['id'].value,
+                g_cross,
+                if(
+                    isNull(g_cross), 
+                    [], 
+                    g_cross
+                )),
+            x,
+            x.toString()),
+        g_arr,
+        if(
+            length(g_arr)==0,
+            true,
+            g_arr.inArray(g_filter)))
 )
