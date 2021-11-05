@@ -1,0 +1,238 @@
+// Get ids of officer first_name matches (crossing on officer_first_name)
+with(
+    if(
+        isNull(value), 
+        [], 
+        cell).cross('data_officer', 'first_name').cells['id'].value,
+    fn_cross,
+    if(
+        isNull(fn_cross), 
+        [], 
+        fn_cross
+    ))
+
+
+// Get ids of officer last_name matches
+with(
+    if(
+        isNull(cells['officer_last_name']), 
+        [], 
+        cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+    ln_cross,
+    if(
+        isNull(ln_cross), 
+        [], 
+        ln_cross
+    ))
+
+// Get ids of officer middle_initial matches
+with(
+    if(
+        isNull(cells['officer_middle_initial']), 
+        [], 
+        cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+    mi_cross,
+    if(
+        isNull(mi_cross), 
+        [], 
+        mi_cross
+    ))
+
+// Get ids of officer suffix_name matches
+with(
+    if(
+        isNull(cells['suffix_name']), 
+        [], 
+        cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+    sn_cross,
+    if(
+        isNull(sn_cross), 
+        [], 
+        sn_cross
+    ))
+
+// Get ids of officer birth_year matches
+with(
+    if(
+        isNull(cells['suffix_name']), 
+        '', 
+        cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+    sn_cross,
+    if(
+        isNull(sn_cross), 
+        '', 
+        sn_cross
+    ))
+
+// convert array to str array
+forEach(
+        { INSERT WITH TO GET IDS HERE },
+        x,
+        x.toString())
+
+// Function to compare first name and last name
+filter(
+    forEach(
+        with(
+            if(
+                isNull(value), 
+                [], 
+                cell).cross('data_officer', 'first_name').cells['id'].value,
+            fn_cross,
+            if(
+                isNull(fn_cross), 
+                [], 
+                fn_cross
+            )),
+        x,
+        x.toString()), 
+    y,
+    forEach(
+        with(
+            if(
+                isNull(cells['officer_last_name']), 
+                [], 
+                cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+            ln_cross,
+            if(
+                isNull(ln_cross), 
+                [], 
+                ln_cross
+            )),
+        x,
+        x.toString()).inArray(y)
+)
+
+// function to compare first name, last name, middle initial
+filter(
+    filter(
+        forEach(
+            with(
+                if(
+                    isNull(value), 
+                    [], 
+                    cell).cross('data_officer', 'first_name').cells['id'].value,
+                fn_cross,
+                if(
+                    isNull(fn_cross), 
+                    [], 
+                    fn_cross
+                )),
+            x,
+            x.toString()), 
+        y,
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_last_name']), 
+                    [], 
+                    cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                ln_cross,
+                if(
+                    isNull(ln_cross), 
+                    [], 
+                    ln_cross
+                )),
+            x,
+            x.toString()).inArray(y)),
+    mi_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['officer_middle_initial']), 
+                    [], 
+                    cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                mi_cross,
+                if(
+                    isNull(mi_cross), 
+                    [], 
+                    mi_cross
+                )),
+            x,
+            x.toString()),
+        mi_arr,
+        if(
+            length(mi_arr)==0,
+            true,
+            mi_arr.inArray(mi_filter)))
+)
+
+
+
+// working function
+filter(
+    filter(
+        filter(
+            forEach(
+                with(
+                    if(
+                        isNull(value), 
+                        [], 
+                        cell).cross('data_officer', 'first_name').cells['id'].value,
+                    fn_cross,
+                    if(
+                        isNull(fn_cross), 
+                        [], 
+                        fn_cross
+                    )),
+                x,
+                x.toString()), 
+            y,
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_last_name']), 
+                        [], 
+                        cells['officer_last_name'].value).cross('data_officer', 'last_name').cells['id'].value,
+                    ln_cross,
+                    if(
+                        isNull(ln_cross), 
+                        [], 
+                        ln_cross
+                    )),
+                x,
+                x.toString()).inArray(y)),
+        mi_filter,
+        with(
+            forEach(
+                with(
+                    if(
+                        isNull(cells['officer_middle_initial']), 
+                        [], 
+                        cells['officer_middle_initial'].value).cross('data_officer', 'middle_initial').cells['id'].value,
+                    mi_cross,
+                    if(
+                        isNull(mi_cross), 
+                        [], 
+                        mi_cross
+                    )),
+                x,
+                x.toString()),
+            mi_arr,
+            if(
+                length(mi_arr)==0,
+                true,
+                mi_arr.inArray(mi_filter)))),
+    sn_filter,
+    with(
+        forEach(
+            with(
+                if(
+                    isNull(cells['suffix_name']), 
+                    [], 
+                    cells['suffix_name'].value).cross('data_officer', 'suffix_name').cells['id'].value,
+                sn_cross,
+                if(
+                    isNull(sn_cross), 
+                    [], 
+                    sn_cross
+                )),
+            x,
+            x.toString()),
+        sn_arr,
+        if(
+            length(sn_arr)==0,
+            true,
+            sn_arr.inArray(sn_filter)))
+)
