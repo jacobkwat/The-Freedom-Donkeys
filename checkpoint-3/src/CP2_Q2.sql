@@ -5,6 +5,8 @@ DROP VIEW IF EXISTS tfd_cp3_officer_disciplined_allegation;
 CREATE VIEW tfd_cp3_officer_disciplined_allegation AS
 SELECT
        A.crid,
+       A.incident_date,
+       EXTRACT(YEAR FROM A.incident_date) incident_year,
        OA.officer_id,
        OA.disciplined
 
@@ -17,6 +19,8 @@ DROP VIEW IF EXISTS tfd_cp3_officer_details_disciplined_allegation;
 CREATE VIEW tfd_cp3_officer_details_disciplined_allegation AS
 SELECT
        ODA.crid,
+       ODA.incident_date,
+       ODA.incident_year,
        ODA.officer_id,
        ODA.disciplined,
        DOF.gender,
@@ -26,7 +30,14 @@ SELECT
        DOF.last_name,
        DOF.allegation_count,
        DOF.discipline_count,
-       CONCAT(DOF.first_name, ' ', DOF.last_name, ', ', DOF.gender, ', ', DOF.race, ', ', DOF.rank) AS FULL_DETAILS_OFFICER
+       DOF.honorable_mention_count,
+       CONCAT(
+           DOF.first_name, ' ', DOF.last_name, ', ',
+           DOF.gender, ', ', DOF.race, ', ', DOF.rank,
+           ', AC:', DOF.allegation_count,
+           ', DC:', DOF.discipline_count,
+           ', HMC:', DOF.honorable_mention_count
+           ) AS FULL_DETAILS_OFFICER
 FROM
        tfd_cp3_officer_disciplined_allegation ODA
 INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
