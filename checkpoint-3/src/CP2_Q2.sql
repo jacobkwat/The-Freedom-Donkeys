@@ -34,13 +34,8 @@ INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
 SELECT * FROM tfd_cp3_officer_details_disciplined_allegation LIMIT 20;
 
 SELECT
-       A.crid,
-       COUNT(*) num_of_officers_disciplined
-
-FROM
-       data_allegation A
-INNER JOIN data_officerallegation OA on A.crid = OA.allegation_id
-WHERE OA.disciplined = TRUE
-GROUP BY A.crid
-ORDER BY num_of_officers_disciplined DESC;
-
+      crid,
+      COUNT(*) num_of_officers_disciplined_in_complaint
+FROM tfd_cp3_officer_disciplined_allegation
+GROUP BY crid
+ORDER BY num_of_officers_disciplined_in_complaint DESC;
