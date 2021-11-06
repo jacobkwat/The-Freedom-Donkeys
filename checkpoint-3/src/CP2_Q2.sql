@@ -25,8 +25,8 @@ SELECT
        DOF.first_name,
        DOF.last_name,
        DOF.allegation_count,
-       DOF.discipline_count
-
+       DOF.discipline_count,
+       CONCAT(DOF.first_name, ' ', DOF.last_name, ', ', DOF.gender, ', ', DOF.race, ', ', DOF.rank) AS FULL_DETAILS_OFFICER
 FROM
        tfd_cp3_officer_disciplined_allegation ODA
 INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
