@@ -3,7 +3,7 @@
 
 -- allegation by civilian section
 DROP VIEW IF EXISTS tfd_cp3_allegation_by_civilian_category;
-CREATE VIEW tfd_cp3_allegation_by_civilian_category AS
+CREATE TEMP VIEW tfd_cp3_allegation_by_civilian_category AS
 SELECT
        DA.crid,
        EXTRACT(YEAR FROM DA.incident_date) incident_year,
@@ -26,7 +26,7 @@ ORDER BY category;
 
 -- allegation by police section
 DROP VIEW IF EXISTS tfd_cp3_allegation_by_police_category;
-CREATE VIEW tfd_cp3_allegation_by_police_category AS
+CREATE TEMP VIEW tfd_cp3_allegation_by_police_category AS
 SELECT
        DA.crid,
        EXTRACT(YEAR FROM DA.incident_date) incident_year,
