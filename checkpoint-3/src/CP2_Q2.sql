@@ -2,7 +2,7 @@
 -- tfd stands for the group name: The Freedom Donkeys
 -- cp3 stands for checkpoint 3
 DROP VIEW IF EXISTS tfd_cp3_officer_disciplined_allegation;
-CREATE VIEW tfd_cp3_officer_disciplined_allegation AS
+CREATE TEMP VIEW tfd_cp3_officer_disciplined_allegation AS
 SELECT
        A.crid,
        A.incident_date,
@@ -16,7 +16,7 @@ INNER JOIN data_officerallegation OA on A.crid = OA.allegation_id
 WHERE OA.disciplined = TRUE;
 
 DROP VIEW IF EXISTS tfd_cp3_officer_details_disciplined_allegation;
-CREATE VIEW tfd_cp3_officer_details_disciplined_allegation AS
+CREATE TEMP VIEW tfd_cp3_officer_details_disciplined_allegation AS
 SELECT
        ODA.crid,
        ODA.incident_date,
@@ -46,7 +46,7 @@ INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
 SELECT * FROM tfd_cp3_officer_details_disciplined_allegation LIMIT 20;
 
 DROP VIEW IF EXISTS tfd_cp3_total_officers_disciplined_per_complaint;
-CREATE VIEW tfd_cp3_total_officers_disciplined_per_complaint AS
+CREATE TEMP VIEW tfd_cp3_total_officers_disciplined_per_complaint AS
 SELECT
       crid,
       COUNT(*) num_of_officers_disciplined_per_complaint
@@ -58,7 +58,7 @@ ORDER BY num_of_officers_disciplined_per_complaint DESC;
 SELECT * FROM tfd_cp3_total_officers_disciplined_per_complaint LIMIT 10;
 
 DROP VIEW IF EXISTS tfd_cp3_officer_disciplined_final_details;
-CREATE VIEW tfd_cp3_officer_disciplined_final_details AS
+CREATE TEMP VIEW tfd_cp3_officer_disciplined_final_details AS
 SELECT
       ODDA.crid,
       ODDA.incident_date,
