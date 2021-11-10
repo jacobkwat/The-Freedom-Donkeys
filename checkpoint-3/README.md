@@ -1,7 +1,6 @@
 # The Freedom Donkeys Checkpoint 3
 
 ### Question 1: Number of officer/civilian allegation reports in each category
-Observable urls: 
 
 [Civilian Complaints Bar Chart Race](https://observablehq.com/@jacobkwat/civilian_complaints_barchartrace)
 
@@ -12,7 +11,6 @@ to illustrate the difference between civilian and officer complaints. There is a
 the visualization again after its ended.
 
 ### Question 2: Number of officers disciplined together
-Observable url: 
 
 [Zoomable Circle Packing](https://observablehq.com/@bodhisattamaiti/zoomable_circle_packing_officers_disciplined)
 
