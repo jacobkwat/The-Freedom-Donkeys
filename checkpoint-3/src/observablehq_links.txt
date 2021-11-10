@@ -1,0 +1,8 @@
+ObservableHQ URLs:
+
+1) Bar Chart Race
+- https://observablehq.com/@jacobkwat/civilian_complaints_barchartrace
+- https://observablehq.com/@jacobkwat/police_complaints_barchartrace
+
+2) Zoomable Circle Packing
+- https://observablehq.com/@bodhisattamaiti/zoomable_circle_packing_officers_disciplined
