@@ -35,10 +35,14 @@ FROM
 INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
 
 -- extract csv after executing the below line:
-SELECT * FROM tfd_cp4_officer_details_disciplined_allegation WHERE is_officer_complaint = FALSE;
+SELECT DISTINCT ON (id) tfd_cp4_officer_details_disciplined_allegation.*
+FROM tfd_cp4_officer_details_disciplined_allegation
+WHERE is_officer_complaint = FALSE;
 
 -- extract csv after executing the below line:
-SELECT * FROM tfd_cp4_officer_details_disciplined_allegation WHERE is_officer_complaint = TRUE;
+SELECT DISTINCT ON (id) tfd_cp4_officer_details_disciplined_allegation.*
+FROM tfd_cp4_officer_details_disciplined_allegation
+WHERE is_officer_complaint = TRUE;
 
 --SELECT officer_id as id
 --FROM data_allegation
