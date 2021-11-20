@@ -17,7 +17,7 @@ SELECT * FROM tfd_cp4_officer_disciplined_allegation LIMIT 10;
 DROP VIEW IF EXISTS tfd_cp4_officer_details_disciplined_allegation;
 CREATE TEMP VIEW tfd_cp4_officer_details_disciplined_allegation AS
 SELECT
-       ODA.officer_id,
+       ODA.officer_id AS id,
        ODA.crid,
        ODA.is_officer_complaint,
        ODA.disciplined,
