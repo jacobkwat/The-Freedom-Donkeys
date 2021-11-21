@@ -2,7 +2,6 @@
 
 ### Summary
 
----
 
 For this checkpoint, we are observing the relationship between officers who are listed on the same complaint. By graphing these connections, we can find patterns in the groupings of specific officers and discover if there are any common issues that will help with future police reform. Additionally, we also see if there are any differences between civilian complaint graphs and police complaint graphs.
 
