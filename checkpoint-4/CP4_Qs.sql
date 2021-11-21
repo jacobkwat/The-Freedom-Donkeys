@@ -34,12 +34,12 @@ FROM
        tfd_cp4_officer_disciplined_allegation ODA
 INNER JOIN data_officer DOF on ODA.officer_id = DOF.id;
 
--- extract csv after executing the below line:
+-- extract csv after executing the below lines:
 SELECT DISTINCT ON (id) tfd_cp4_officer_details_disciplined_allegation.*
 FROM tfd_cp4_officer_details_disciplined_allegation
 WHERE is_officer_complaint = FALSE;
 
--- extract csv after executing the below line:
+-- extract csv after executing the below lines:
 SELECT DISTINCT ON (id) tfd_cp4_officer_details_disciplined_allegation.*
 FROM tfd_cp4_officer_details_disciplined_allegation
 WHERE is_officer_complaint = TRUE;
@@ -49,7 +49,7 @@ WHERE is_officer_complaint = TRUE;
 --JOIN data_officerallegation d on data_allegation.crid = d.allegation_id
 --WHERE is_officer_complaint = false and disciplined = true;
 
-
+-- extract csv after executing the below lines:
 select distinct DA1.officer_id AS src, DA2.officer_id AS dst, DA1.allegation_id AS relationship
 FROM data_officerallegation DA1
 JOIN data_officerallegation DA2 on DA1.allegation_id = DA2.allegation_id
@@ -57,7 +57,7 @@ JOIN data_allegation DA0 on DA1.allegation_id = DA0.crid
 WHERE DA1.officer_id <> DA2.officer_id and DA0.is_officer_complaint = false and DA1.disciplined = true and DA2.disciplined = true
 ORDER BY DA1.allegation_id ASC;
 
-
+-- extract csv after executing the below lines:
 select distinct DA1.officer_id AS src, DA2.officer_id AS dst, DA1.allegation_id AS relationship
 FROM data_officerallegation DA1
 JOIN data_officerallegation DA2 on DA1.allegation_id = DA2.allegation_id
