@@ -11,7 +11,8 @@ FROM
        data_attachmentfile ATF
 INNER JOIN data_attachmentnarrative ATN on ATF.id = ATN.attachment_id;
 
-SELECT COUNT(*) FROM tfd_cp5_complaint_description_details;
+--SELECT COUNT(*) FROM tfd_cp5_complaint_description_details;
+--SELECT COUNT(*) FROM tfd_cp5_complaint_description_details WHERE complaint_narrative IS NULL;
 
 DROP VIEW IF EXISTS tfd_cp5_allegation_and_category_details;
 CREATE TEMP VIEW tfd_cp5_allegation_and_category_details AS
@@ -28,7 +29,10 @@ FROM
        data_allegation DA
 INNER JOIN data_allegationcategory DAC on DA.most_common_category_id = DAC.id;
 
-SELECT COUNT(*) FROM tfd_cp5_allegation_and_category_details;
+--SELECT COUNT(*) FROM tfd_cp5_allegation_and_category_details;
+--SELECT COUNT(*) FROM tfd_cp5_allegation_and_category_details WHERE cr_text IS NULL;
+--SELECT COUNT(*) FROM tfd_cp5_allegation_and_category_details WHERE crid IS NULL;
+--SELECT * FROM tfd_cp5_allegation_and_category_details WHERE cr_text IS NULL;
 
 DROP VIEW IF EXISTS tfd_cp5_allegation_complaint_description_details;
 CREATE TEMP VIEW tfd_cp5_allegation_complaint_description_details AS
@@ -45,7 +49,7 @@ FROM
        tfd_cp5_allegation_and_category_details ACD
 INNER JOIN tfd_cp5_complaint_description_details CDD on ACD.crid = CDD.allegation_id;
 
-SELECT COUNT(*) FROM tfd_cp5_allegation_complaint_description_details;
+--SELECT COUNT(*) FROM tfd_cp5_allegation_complaint_description_details;
 
 DROP VIEW IF EXISTS tfd_cp5_officer_allegation_details;
 CREATE TEMP VIEW tfd_cp5_officer_allegation_details AS
@@ -64,6 +68,8 @@ SELECT
 FROM
        tfd_cp5_allegation_complaint_description_details ACDD
 INNER JOIN data_officerallegation OA on ACDD.crid = OA.allegation_id;
+
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_details;
 
 DROP VIEW IF EXISTS tfd_cp5_officer_allegation_description_complete_details;
 CREATE TEMP VIEW tfd_cp5_officer_allegation_description_complete_details AS
@@ -92,7 +98,11 @@ FROM
 INNER JOIN data_officer DOF on OAD.officer_id = DOF.id;
 
 -- extract csv after executing the below lines:
-SELECT * FROM tfd_cp5_officer_allegation_description_complete_details;
-SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=TRUE;
-
-
+--SELECT * FROM tfd_cp5_officer_allegation_description_complete_details;
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details;
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=TRUE AND text_content IS NULL AND complaint_narrative IS NULL AND cr_text IS NULL;
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=TRUE AND complaint_narrative IS NULL;
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=TRUE;
+--SELECT COUNT(*) FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=FALSE;
+SELECT * FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=TRUE;
+SELECT * FROM tfd_cp5_officer_allegation_description_complete_details WHERE disciplined=FALSE;
